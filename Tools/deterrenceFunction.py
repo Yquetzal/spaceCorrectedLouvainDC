@@ -1,16 +1,8 @@
 import math
 import matplotlib.pyplot as plt
 
-#This function compute a deterrence function
-#INPUTS
-#INs,OUTs : in and out degrees, dictionaries
-#observations : dictionary of weights of edges
-#distances : dictionary, distances between each pair of node
-#roundDecimal : the granularity of the deterrence function (distance function).
-#noramlized : if the values are normalized, ie they will be around 1, or ready to use in the classic gravity model
-#plot : display or not the distance function
 
-
+#this file contains all useful functions for computing and ploting the deterrence function
 def plotScatterFree(seriesToDisplay,maxX=-1,log=False,axesNames=("x","f(x)")):
 	for serie in seriesToDisplay:
 		plt.plot(serie[0],serie[1],label=serie[2])
@@ -26,9 +18,6 @@ def plotScatterFree(seriesToDisplay,maxX=-1,log=False,axesNames=("x","f(x)")):
 	ax.yaxis.grid()
 	plt.ylabel(axesNames[1])
 	plt.xlabel(axesNames[0])
-
-
-
 	plt.show()
 
 
@@ -53,6 +42,8 @@ def convertWithPrecision(val,precision):
 	return theDist
 
 
+
+#this class is used to compute a deterrence function. First call deterrenceFunctionEstimation and then getDeterrenceAtDistance
 class deterrenceFunction():
 	def __init__(self):
 		self.distancesDic = {}

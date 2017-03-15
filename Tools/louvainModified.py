@@ -4,7 +4,8 @@
 This module is a modification of the louvain method that allows to take as input any null model.
 The null model must be provided as graph, the weight of each edge corresponding to the estimated weight of the edge
 For instance, in the case of the spatial null model, the null model is provided by the result of a gravity model
-Note: After
+
+It is based on an original version provided by Thomas Aynaud.
 """
 from __future__ import print_function
 __all__ = ["partition_at_level", "modularity", "best_partition", "generate_dendrogram", "generate_dendogram", "induced_graph"]

@@ -1,3 +1,8 @@
+#this file contains an interface of a graph model and several implementations
+#Convenient to handle frequent operations between typical graph models.
+
+
+
 class GraphModel():
 	def getSumEdges(self):
 		raise Exception("Function not implemented")

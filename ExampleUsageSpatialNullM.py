@@ -1,4 +1,4 @@
-from Tools.spatialNullModel_CBJ import *
+from Tools.spatialNullModel import *
 from Tools.utilSpatialNullM import *
 
 distanceFile = ""

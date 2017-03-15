@@ -1,7 +1,7 @@
 import networkx as nx
 from . import louvainModified as lvm
 
-
+#this file contains a set of useful functions to handle graph transformations, community format transformations, reading files ...
 def printCommunitiesInVisualisationFormat(communities):
 	for n in communities[0]:
 		toPrint=str(n)

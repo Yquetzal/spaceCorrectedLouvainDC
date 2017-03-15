@@ -6,6 +6,8 @@ from scipy.stats.stats import pearsonr
 import warnings
 
 
+#This file contains the function to compute the gravity model and the degree constrained gravity model
+
 def checkSystematicBiasPosition(distances,graphModelref,graphModelComputed):
 	excentricity = {}
 	for node1 in graphModelref.getNodes():
