@@ -79,7 +79,7 @@ def getSpatialNullModelExpertEtAl(originalNetwork,distances,roundDecimal,maximal
 	return getSpatialNullModel(originalNetwork,distances,roundDecimal,maximalDistance=maximalDistance,plot=plot,iterations=0,printDebug=printDebug)
 
 def getSpatialNullModel(originalNetwork,distances,roundDecimal,maximalDistance=100000,plot=False,iterations=5,printDebug=False):
-
+	print("Computing the spatial null model with %s iterations"%(iterations))
 	norm = False
 	GraphModelOriginal = GraphModelAsnxGraph(originalNetwork)
 

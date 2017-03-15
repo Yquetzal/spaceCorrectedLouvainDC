@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a77689a6-8e77-4f64-a2ab-6580c32efbf2" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tools/spatialNullModel_CBJ.py" afterPath="$PROJECT_DIR$/Tools/spatialNullModel.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ExampleUsageSpatialNullM.py" afterPath="$PROJECT_DIR$/ExampleUsageSpatialNullM.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tools/GraphModels.py" afterPath="$PROJECT_DIR$/Tools/GraphModels.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tools/deterrenceFunction.py" afterPath="$PROJECT_DIR$/Tools/deterrenceFunction.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tools/louvainModified.py" afterPath="$PROJECT_DIR$/Tools/louvainModified.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tools/spatialNullModel.py" afterPath="$PROJECT_DIR$/Tools/spatialNullModel.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tools/utilSpatialNullM.py" afterPath="$PROJECT_DIR$/Tools/utilSpatialNullM.py" />
     </list>
     <ignored path="spaceCorrectedLouvainDC.iws" />
@@ -32,9 +28,11 @@
       <file leaf-file-name="ExampleUsageSpatialNullM.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ExampleUsageSpatialNullM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="27" selection-start-line="1" selection-start-column="27" selection-end-line="1" selection-end-column="27" />
-              <folding />
+            <state relative-caret-position="288">
+              <caret line="31" column="49" selection-start-line="31" selection-start-column="49" selection-end-line="31" selection-end-column="49" />
+              <folding>
+                <element signature="e#0#36#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -81,11 +79,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="utilSpatialNullM.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="utilSpatialNullM.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Tools/utilSpatialNullM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="130" selection-start-line="3" selection-start-column="130" selection-end-line="3" selection-end-column="130" />
+            <state relative-caret-position="235">
+              <caret line="33" column="48" selection-start-line="33" selection-start-column="48" selection-end-line="33" selection-end-column="48" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -93,11 +91,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="spatialNullModel.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="spatialNullModel.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Tools/spatialNullModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="102" selection-start-line="8" selection-start-column="102" selection-end-line="8" selection-end-column="102" />
+            <state relative-caret-position="229">
+              <caret line="81" column="75" selection-start-line="81" selection-start-column="75" selection-end-line="81" selection-end-column="75" />
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
               </folding>
@@ -141,6 +139,7 @@
         <option value="$PROJECT_DIR$/Tools/spatialNullModel_CBJ.py" />
         <option value="$PROJECT_DIR$/ExampleUsageSpatialNullM.py" />
         <option value="$PROJECT_DIR$/Tools/utilSpatialNullM.py" />
+        <option value="$PROJECT_DIR$/Tools/spatialNullModel.py" />
       </list>
     </option>
   </component>
@@ -399,7 +398,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="51" y="96" width="1753" height="1005" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24301198" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -478,30 +477,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tools/spatialNullModel.py">
+    <entry file="file://$PROJECT_DIR$/Tools/utilSpatialNullM.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="102" selection-start-line="8" selection-start-column="102" selection-end-line="8" selection-end-column="102" />
+        <state relative-caret-position="235">
+          <caret line="33" column="48" selection-start-line="33" selection-start-column="48" selection-end-line="33" selection-end-column="48" />
           <folding>
-            <element signature="e#0#33#0" expanded="true" />
+            <element signature="e#0#21#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ExampleUsageSpatialNullM.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="27" selection-start-line="1" selection-start-column="27" selection-end-line="1" selection-end-column="27" />
-          <folding />
+        <state relative-caret-position="288">
+          <caret line="31" column="49" selection-start-line="31" selection-start-column="49" selection-end-line="31" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tools/utilSpatialNullM.py">
+    <entry file="file://$PROJECT_DIR$/Tools/spatialNullModel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="130" selection-start-line="3" selection-start-column="130" selection-end-line="3" selection-end-column="130" />
+        <state relative-caret-position="229">
+          <caret line="81" column="75" selection-start-line="81" selection-start-column="75" selection-end-line="81" selection-end-column="75" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#0#33#0" expanded="true" />
           </folding>
         </state>
       </provider>

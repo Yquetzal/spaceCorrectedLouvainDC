@@ -30,10 +30,8 @@ def createUndirectedGraphWithSumWeight(graphModel):
 	return aGraph
 
 def computeCommunityDetectionUsingRefNullModel(aGraph,aNullModel,firstLevel=True):
-	# (idToNode, nodeToID) = createDictionaries(flows)
-	#
-	# aGraph = createGraphKeepingNames(flows, idToNode, nodeToID)
-	# aNullModel = createGraphKeepingNames(nullModel, idToNode, nodeToID)
+
+	print("----computing community detection----")
 	if (firstLevel):
 		communities = lvm.getPartitionAtSpecificLevel(aGraph, aNullModel)
 	else:

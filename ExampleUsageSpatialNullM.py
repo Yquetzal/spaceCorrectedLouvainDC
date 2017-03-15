@@ -62,7 +62,6 @@ if __name__ == "__main__":
 	ConfigcommunitiesLastLevel = computeCommunityDetectionUsingRefNullModel(undirectedObservedGraph, graphOfNullModel,
 																			firstLevel=False)
 
-
 	printCommunitiesInVisualisationFormat([DCcommunitiesLevel1,DCcommunitiesLastLevel,ExpertcommunitiesLevel1,ExpertcommunitiesLastLevel,ConfigcommunitiesLevel1,ConfigcommunitiesLastLevel])
 
 
