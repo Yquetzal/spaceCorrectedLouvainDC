@@ -160,13 +160,5 @@ def getSpatialNullModel(originalNetwork,distances,roundDecimal,maximalDistance=1
 	temporaryModel = GravityModel(EISsIN, EISsOUT, deterrencefunc.getDeterrenceAtDistance, distances,
 								  desiredInDegrees=INs, desiredOutDegrees=OUTs)
 
-	# dicExpectEdges = {}
-	# for source in temporaryModel.getNodes():
-	# 	for dest in temporaryModel.getNodes():
-	# 		#dicExpectEdges[(source,dest)]=temporaryModel.getExpectedEdges(source,dest)
-	#(finalINs,finalOUTs) = temporaryModel.getDegrees()
-
-	#finalNullModel = GraphModelAsDictionary(dicExpectEdges,finalINs,finalOUTs)
-	#print("EDIT distance Final model: %s" %finalNullModel.getEditDistWithGraphModel(GraphModelOriginal))
 
 	return(temporaryModel,deterrencefunc)

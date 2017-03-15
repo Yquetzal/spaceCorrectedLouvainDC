@@ -18,21 +18,23 @@ if __name__ == "__main__":
 	#obtain the observed network as a networkx object
 	observedNetwork = readVelovFileAsNetworkX(flowFile)
 
-	#obtain the distance between nodes as a function. In little example like this one, precomputed, but could be computed on the fly
+	#obtain the distance between nodes as a function that takes 2 nodes and return their distance
+	# In little example like this one, precomputed because faster, but could be computed on the fly
 	distancesBetweenNodes = Distances()
 	distancesBetweenNodes.getDistanceFunctionVelov(distanceFile)
 
 
+	#create an undirected version of original graph by summing the weight of edges in both directions, for community detection
 	undirectedObservedGraph = createUndirectedGraphWithSumWeight(observedNetwork)
-
 
 	###-------------- COMPUTE COMMUNITIES WITH THE PROPOSED DEGREE CORRECTED NULL MODEL
 	#compute the null model of a spatial network. roundDecimal = -2 : bin every 100 unity (meters)
 	(nullModel, distFunction) = getSpatialNullModel(observedNetwork,distancesBetweenNodes.getDistanceBetween,roundDecimal=-2,iterations=5,plot=plot)
 
-	#run community detection using computed null model
+	#compute undirected version of null model
 	graphOfNullModel = createnxGraphFromGraphModel(nullModel)
 
+	#run community detection using the computed null model
 	DCcommunitiesLevel1 = computeCommunityDetectionUsingRefNullModel(undirectedObservedGraph,graphOfNullModel,firstLevel=True)
 	DCcommunitiesLastLevel = computeCommunityDetectionUsingRefNullModel(undirectedObservedGraph,graphOfNullModel,firstLevel=False)
 

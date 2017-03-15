@@ -265,7 +265,7 @@ class Status :
 				if best_com != com_node:
 					modif = True
 			new_mod = self.modularity()
-			print("--PASS %s , new mod %s "%(nb_pass_done,new_mod))
+			#print("--PASS %s , new mod %s "%(nb_pass_done,new_mod))
 
 			if new_mod - cur_mod < self.MIN:
 				break
