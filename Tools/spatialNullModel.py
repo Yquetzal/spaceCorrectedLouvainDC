@@ -8,7 +8,7 @@ import warnings
 
 #This file contains the function to compute the gravity model and the degree constrained gravity model
 
-def checkSystematicBiasPosition(distances,graphModelref,graphModelComputed):
+def _checkSystematicBiasPosition(distances, graphModelref, graphModelComputed):
 	excentricity = {}
 	for node1 in graphModelref.getNodes():
 		for node2 in graphModelref.getNodes():
@@ -38,7 +38,7 @@ def checkSystematicBiasPosition(distances,graphModelref,graphModelComputed):
 
 
 
-def estimateEISsIN(EISsIN,EISsOUT,INs,OUTs,deterrencefunc,distances,normalized=False):
+def _estimateEISsIN(EISsIN, EISsOUT, INs, OUTs, deterrencefunc, distances, normalized=False):
 	#EIS : estimated Intrinsic Strenght
 	newEISsIN = {}
 	sumIn = sum(INs.values())
@@ -57,7 +57,7 @@ def estimateEISsIN(EISsIN,EISsOUT,INs,OUTs,deterrencefunc,distances,normalized=F
 
 	return newEISsIN
 
-def estimateEISsOUT(EISsIN,EISsOUT,INs,OUTs,deterrencefunc,distances,normalized=False):
+def _estimateEISsOUT(EISsIN, EISsOUT, INs, OUTs, deterrencefunc, distances, normalized=False):
 	# EIS : estimated Intrinsic Strenght
 	newEISsOUT = {}
 	sumOut = sum(OUTs.values())
@@ -76,9 +76,34 @@ def estimateEISsOUT(EISsIN,EISsOUT,INs,OUTs,deterrencefunc,distances,normalized=
 
 
 def getSpatialNullModelExpertEtAl(originalNetwork,distances,roundDecimal,maximalDistance=100000,plot=False,printDebug=False):
+	"""
+	:param originalNetwork: the observed network for which we want the corresponding null model
+	:param distances: a function that return the distance between two nodes of the provided graph
+	:param roundDecimal: the rounding used to compute bins of the deterrence function. for a distance d=123.456 :
+	 if roundDecimal=2, binned value is 123.46.
+	 if roundDecimal=-2, binned value is 100
+	:param maximalDistance: ignore in most cases, parameter of the deterence function to set an upper bound on the considered distances
+	:param minValsBin: parameter of the deterrence function, minimum number of observations in a bin to consider it. (avoid abherent values for rare distances)
+	:param plot: if True, plot the deterrence function before the doubly constrained process and at the end of the process
+	:param printDebug: print at each step a trace of the current model: edit distance with original network, degree bias towards central nodes...
+	slow down the process a lot, use only to understand or check that everything is going well.
+	"""
 	return getSpatialNullModel(originalNetwork,distances,roundDecimal,maximalDistance=maximalDistance,plot=plot,iterations=0,printDebug=printDebug)
 
-def getSpatialNullModel(originalNetwork,distances,roundDecimal,maximalDistance=100000,plot=False,iterations=5,printDebug=False):
+def getSpatialNullModel(originalNetwork,distances,roundDecimal,maximalDistance=100000,minValsBin = 3,plot=False,iterations=5,printDebug=False):
+	"""
+	:param originalNetwork: the observed network for which we want the corresponding null model
+	:param distances: a function that return the distance between two nodes of the provided graph
+	:param roundDecimal: the rounding used to compute bins of the deterrence function. for a distance d=123.456 :
+	 if roundDecimal=2, binned value is 123.46.
+	 if roundDecimal=-2, binned value is 100
+	:param maximalDistance: ignore in most cases, parameter of the deterence function to set an upper bound on the considered distances
+	:param minValsBin: parameter of the deterrence function, minimum number of observations in a bin to consider it. (avoid abherent values for rare distances)
+	:param plot: if True, plot the deterrence function before the doubly constrained process and at the end of the process
+	:param iterations: number of iterations in the doubly constrained process
+	:param printDebug: print at each step a trace of the current model: edit distance with original network, degree bias towards central nodes...
+	slow down the process a lot, use only to understand or check that everything is going well.
+	"""
 	print("Computing the spatial null model with %s iterations"%(iterations))
 	norm = False
 	GraphModelOriginal = GraphModelAsnxGraph(originalNetwork)
@@ -99,7 +124,7 @@ def getSpatialNullModel(originalNetwork,distances,roundDecimal,maximalDistance=1
 		(degreesConvergenceIN,degreesConvergenceOUT) = temporaryModel.getDegreesSimilarity(GraphModelOriginal)
 		print("--convergence of degrees, IN: %s OUT: %s" % (degreesConvergenceIN, degreesConvergenceOUT))
 
-		checkSystematicBiasPosition(distances, GraphModelOriginal, temporaryModel)
+		_checkSystematicBiasPosition(distances, GraphModelOriginal, temporaryModel)
 
 	# --------------------------------------------
 
@@ -107,7 +132,7 @@ def getSpatialNullModel(originalNetwork,distances,roundDecimal,maximalDistance=1
 	print("computing the original deterrence function")
 	deterrencefunc = deterrenceFunction()
 	deterrencefunc.deterrenceFunctionEstimation(INs, OUTs, originalNetwork, distances,
-													  roundDecimals=roundDecimal, maximalDistance=maximalDistance, plot=plot)
+													  roundDecimals=roundDecimal, maximalDistance=maximalDistance, plot=plot,minVals = minValsBin)
 
 	# ---Print summary progress---------
 	if printDebug or iterations==0:
@@ -116,7 +141,7 @@ def getSpatialNullModel(originalNetwork,distances,roundDecimal,maximalDistance=1
 			"EDIT distance with Simple Gravity model: %s" % temporaryModel.getEditDistWithGraphModel(GraphModelOriginal))
 		(degreesConvergenceIN, degreesConvergenceOUT) = temporaryModel.getDegreesSimilarity(GraphModelOriginal)
 		print("--convergence of degrees, IN: %s OUT: %s" % (degreesConvergenceIN, degreesConvergenceOUT))
-		checkSystematicBiasPosition(distances, GraphModelOriginal, temporaryModel)
+		_checkSystematicBiasPosition(distances, GraphModelOriginal, temporaryModel)
 
 	# --------------------------------------------
 
@@ -131,8 +156,8 @@ def getSpatialNullModel(originalNetwork,distances,roundDecimal,maximalDistance=1
 
 
 
-		EISsIN = estimateEISsIN(EISsIN, EISsOUT, INs, OUTs, deterrencefunc.getDeterrenceAtDistance,distances, normalized=norm)
-		EISsOUT = estimateEISsOUT(EISsIN, EISsOUT, INs, OUTs, deterrencefunc.getDeterrenceAtDistance, distances,normalized=norm)
+		EISsIN = _estimateEISsIN(EISsIN, EISsOUT, INs, OUTs, deterrencefunc.getDeterrenceAtDistance, distances, normalized=norm)
+		EISsOUT = _estimateEISsOUT(EISsIN, EISsOUT, INs, OUTs, deterrencefunc.getDeterrenceAtDistance, distances, normalized=norm)
 
 		# ---Print summary progress---------
 		if printDebug:
@@ -144,19 +169,19 @@ def getSpatialNullModel(originalNetwork,distances,roundDecimal,maximalDistance=1
 					GraphModelOriginal))
 			(degreesConvergenceIN, degreesConvergenceOUT) = temporaryModel.getDegreesSimilarity(GraphModelOriginal)
 			print("--convergence of degrees, IN: %s OUT: %s" % (degreesConvergenceIN, degreesConvergenceOUT))
-			checkSystematicBiasPosition(distances, GraphModelOriginal, temporaryModel)
+			_checkSystematicBiasPosition(distances, GraphModelOriginal, temporaryModel)
 
 		# -------------------------------------
 		deterrencefunc = deterrenceFunction()
 		deterrencefunc.deterrenceFunctionEstimation(EISsIN, EISsOUT, originalNetwork, distances,
 													roundDecimals=roundDecimal, maximalDistance=maximalDistance,
-													plot=False)
+													plot=False,minVals = minValsBin)
 
 	if plot:
 		deterrencefunc = deterrenceFunction()
 		deterrencefunc.deterrenceFunctionEstimation(EISsIN, EISsOUT, originalNetwork, distances,
 													roundDecimals=roundDecimal, maximalDistance=maximalDistance,
-													plot=plot)
+													plot=plot,minVals = minValsBin)
 
 
 	temporaryModel = GravityModel(EISsIN, EISsOUT, deterrencefunc.getDeterrenceAtDistance, distances,

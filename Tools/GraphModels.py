@@ -1,6 +1,12 @@
 #this file contains an interface of a graph model and several implementations
 #Convenient to handle frequent operations between typical graph models.
 
+#A graph model can be defined by mathematic functions (e.g the configuration model, the gravity model ...
+# for which the probability of an edge is defined according to the degree of nodes (and a deterrence functio for gravity model)
+
+#A graph can also be defined edges by edges, in this case one can use a networkx object, or a dictionary of edges and their weights
+#An observed graph is therefore a "particular case" of a graph model...
+
 
 
 class GraphModel():

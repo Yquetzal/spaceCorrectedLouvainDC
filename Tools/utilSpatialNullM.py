@@ -9,7 +9,12 @@ def printCommunitiesInVisualisationFormat(communities):
 			toPrint+="\t"+str(c[n])
 		print(toPrint)
 
+
 def createnxGraphFromGraphModel(graphModel):
+	"""
+	:param graphModel:
+	:return:
+	"""
 	aGraph = nx.Graph()
 	for source in graphModel.getNodes():
 		for dest in graphModel.getNodes():
