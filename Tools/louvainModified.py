@@ -210,7 +210,6 @@ class Status :
 
 	Could be replaced by named tuple, but don't want to depend on python 2.6
 	"""
-	node2com = {}
 	total_weight = 0
 	internals = {}
 	#degrees = {}
@@ -223,6 +222,7 @@ class Status :
 		self.graph = -1
 		self.nullModel = -1
 		self.node2com = dict([])  # for each node, its community
+		self.com2node = {}
 
 		self.internals = dict([])
 		self.internalsNull = dict([])
@@ -247,8 +247,8 @@ class Status :
 			cur_mod = new_mod
 			modif = False
 			nb_pass_done += 1
-
 			for node in self.graph.nodes():
+				#print("node: %s"%node)
 				com_node = self.node2com[node]
 
 				(neigh_communities,neigh_communitiesNull) = self.neighcom(node,self.graph,self.nullModel)
@@ -263,6 +263,8 @@ class Status :
 					#incr = dnc - self.degrees.get(com, 0.) * degc_totw
 					incr = dnc - neigh_communitiesNull[com] #how much we will increase score in moving current node to this com
 					if incr > best_increase:
+						#print("node %s incr %s from %s - %s" % (node, incr, dnc, neigh_communitiesNull[com]))
+
 						best_increase = incr
 						best_com = com
 				self.insert(node, best_com,
@@ -270,7 +272,7 @@ class Status :
 				if best_com != com_node:
 					modif = True
 			new_mod = self.modularity()
-			#print("--PASS %s , new mod %s "%(nb_pass_done,new_mod))
+			print("--PASS %s , new mod %s "%(nb_pass_done,new_mod))
 
 			if new_mod - cur_mod < self.MIN:
 				break
@@ -288,6 +290,7 @@ class Status :
 		new_status.graph=self.graph
 		new_status.nullModel=self.nullModel
 		new_status.node2com = self.node2com.copy()
+		new_status.com2node = self.com2node.copy()
 
 		new_status.internals = self.internals.copy() #intern edges in communities in original graph
 		new_status.internalsNull=self.internalsNull #intern edges in communities in null model
@@ -301,6 +304,7 @@ class Status :
 		self.graph=graph
 		self.nullModel=nullModel
 		self.node2com = dict([]) #for each node, its community
+		self.com2node = {}
 
 		self.internals = dict([])
 		self.internalsNull = dict([])
@@ -314,6 +318,7 @@ class Status :
 		if part == None :#if it is the first iteration, put each node in its own community, intern edges are only loops
 			for node in graph.nodes() :
 				self.node2com[node] = count
+				self.com2node.setdefault(count,set()).add(node)
 				#deg = float(graph.degree(node, weight = 'weight'))
 
 				self.loops[node] = float(graph.get_edge_data(node, node,{"weight":0}).get("weight", 1))
@@ -325,6 +330,7 @@ class Status :
 		else:
 			for node in graph.nodes():
 				self.node2com[node] = part[node]
+				self.com2node.setdefault(part[node],set()).add(node)
 
 			self.internals = _computeSumWeightsByCom(part, graph)
 			self.internalsNull = _computeSumWeightsByCom(part, nullModel)
@@ -345,8 +351,13 @@ class Status :
 
 				neighborcom = self.node2com[neighbor] #get the community of the neighbor
 				weightsOriginal[neighborcom] = weightsOriginal.get(neighborcom, 0) + weight  #increase the weights of the community affected
-				weightsNullModel[neighborcom] = weightsNullModel.get(neighborcom,0)+nullModel[node][neighbor]["weight"]
 
+		for com in weightsOriginal:
+			for neighbInCom in self.com2node[com]:
+				if neighbInCom != node:  # if it is not a loop
+
+					weightsNullModel[com] = weightsNullModel.get(com, 0) + nullModel[node][neighbInCom]["weight"]  #increase the weights of the community affected
+					#weightsNullModel[neighborcom] = weightsNullModel.get(neighborcom,0)+nullModel[node][neighbor]["weight"]
 		return (weightsOriginal,weightsNullModel)
 
 	def remove(self,node, com, weight,weightNull) :
@@ -357,12 +368,16 @@ class Status :
 
 		self.internalsNull[com] = float(self.internalsNull.get(com, 0.) -
 										weightNull - self.loopsNull.get(node, 0.))
+		self.com2node[com].remove(node)
+		if len(self.com2node[com])==0:
+			del self.com2node[com]
 		self.node2com[node] = -1
 
 
 	def insert(self,node, com, weight,weightNull) :
 		""" Insert node into community and modify status"""
 		self.node2com[node] = com
+		self.com2node.setdefault(com,set()).add(node)
 
 		self.internals[com] = float( self.internals.get(com, 0.) +
 									   weight + self.loops.get(node, 0.) )
@@ -376,7 +391,7 @@ class Status :
 		"""
 		links = float(self.total_weight)
 		result = 0.
-		for community in set(self.node2com.values()) :
+		for community in self.com2node :
 			in_degree = self.internals.get(community, 0.)
 			in_degreeNullMod = self.internalsNull.get(community, 0.)
 
