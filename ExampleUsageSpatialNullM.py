@@ -55,7 +55,7 @@ if __name__ == "__main__":
 
 
 	#---------- COMPUTE COMMUNITIES WITH THE SIMPLE CONFIGURATION MODEL (ingore spatial effect)
-	nullModel = ConfigurationModel(observedNetwork.in_degree(weight="weight"),observedNetwork.out_degree(weight="weight"))
+	nullModel = ConfigurationModel(dict(observedNetwork.in_degree(weight="weight")),dict(observedNetwork.out_degree(weight="weight")))
 	graphOfNullModel = createnxGraphFromGraphModel(nullModel)
 
 	ConfigcommunitiesLevel1 = computeCommunityDetectionUsingRefNullModel(undirectedObservedGraph, graphOfNullModel,firstLevel=True)

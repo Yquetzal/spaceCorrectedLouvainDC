@@ -74,7 +74,7 @@ class GraphModelAsnxGraph(GraphModel):
 			return 0
 
 	def getSumEdges(self):
-		return sum(self.nxGraph.in_degree(weight="weight").values())
+		return sum(dict(self.nxGraph.in_degree(weight="weight")).values())
 
 
 
@@ -87,7 +87,7 @@ class ConfigurationModel(GraphModel):
 		"""
 		self.inDegrees=INdegrees
 		self.outDegrees=OUTdegrees
-		self.totalDegrees = sum(self.inDegrees.values())
+		self.totalDegrees = sum(dict(self.inDegrees).values())
 
 	def getNodes(self):
 		return set(self.inDegrees.keys())

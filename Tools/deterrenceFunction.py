@@ -66,7 +66,7 @@ class deterrenceFunction():
 		"""
 		self.roundDecimals=roundDecimals
 		self.maximalDistance=maximalDistance
-		sumIn = sum(observedGraph.in_degree(weight="weight").values())
+		sumIn = sum(dict(observedGraph.in_degree(weight="weight")).values())
 
 
 		byDistEstimated ={}

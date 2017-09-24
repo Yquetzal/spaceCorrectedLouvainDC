@@ -110,8 +110,8 @@ def getSpatialNullModel(originalNetwork,distances,roundDecimal,maximalDistance=1
 
 
 	# compute in and out degrees
-	INs = originalNetwork.in_degree(weight="weight")
-	OUTs = originalNetwork.out_degree(weight="weight")
+	INs = dict(originalNetwork.in_degree(weight="weight"))
+	OUTs = dict(originalNetwork.out_degree(weight="weight"))
 
 
 
